@@ -1,0 +1,60 @@
+[
+  {
+    "screenId": "d155e7a4b1e044708ddac78e00009ba2",
+    "title": "Game Settings - FluxRail Lite",
+    "componentName": "GameSettingsFluxrailLite",
+    "file": "src/screens/GameSettingsFluxrailLite.tsx",
+    "buttons": 3,
+    "inputs": 3,
+    "links": 0,
+    "actions": [
+      {
+        "id": "reset-preferences-1",
+        "kind": "button",
+        "label": "Reset Preferences",
+        "index": 0
+      },
+      {
+        "id": "return-to-gameplay-2",
+        "kind": "button",
+        "label": "Return to Gameplay",
+        "index": 1
+      },
+      {
+        "id": "save-preferences-3",
+        "kind": "button",
+        "label": "Save Preferences",
+        "index": 2
+      }
+    ]
+  },
+  {
+    "screenId": "cd17a8e9038a421ba4d41acb8efdf6da",
+    "title": "Gameplay - FluxRail Lite",
+    "componentName": "GameplayFluxrailLite",
+    "file": "src/screens/GameplayFluxrailLite.tsx",
+    "buttons": 3,
+    "inputs": 0,
+    "links": 0,
+    "actions": [
+      {
+        "id": "initiate-sequence-1",
+        "kind": "button",
+        "label": "Initiate Sequence",
+        "index": 0
+      },
+      {
+        "id": "restart-2",
+        "kind": "button",
+        "label": "Restart",
+        "index": 1
+      },
+      {
+        "id": "settings-3",
+        "kind": "button",
+        "label": "Settings",
+        "index": 2
+      }
+    ]
+  }
+]
