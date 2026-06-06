@@ -97,7 +97,11 @@ function checkCollisions(player: GameEntity, entities: GameEntity[], threshold =
   const hits: number[] = [];
   for (let i = 0; i < entities.length; i++) {
     const e = entities[i];
-    if (e.lane === player.lane && Math.abs(e.position - player.position) < threshold) {
+    if (
+      e.lane === player.lane &&
+      e.position >= player.position &&
+      e.position - player.position < threshold
+    ) {
       hits.push(i);
     }
   }
@@ -171,9 +175,11 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       };
     }
     case 'MOVE_LEFT': {
+      if (state.paused || state.gameOver) return state;
       return { ...state, player: { ...state.player, lane: clampLane(state.player.lane - 1) } };
     }
     case 'MOVE_RIGHT': {
+      if (state.paused || state.gameOver) return state;
       return { ...state, player: { ...state.player, lane: clampLane(state.player.lane + 1) } };
     }
     case 'TOGGLE_PAUSE': {
@@ -215,7 +221,17 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...state, lastError: action.error };
     }
     case 'INITIATE_SEQUENCE': {
-      // Start/resume gameplay from settings or initial state
+      if (state.gameOver) {
+        return {
+          ...createInitialState(),
+          highScore: state.highScore,
+          difficulty: state.difficulty,
+          screen: 'gameplay',
+          storageStatus: state.storageStatus,
+          paused: false,
+          gameOver: false,
+        };
+      }
       return { ...state, screen: 'gameplay', paused: false, gameOver: false };
     }
     default:

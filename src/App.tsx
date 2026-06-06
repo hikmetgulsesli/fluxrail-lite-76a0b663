@@ -7,37 +7,8 @@ import {
 } from './features/fluxrail-lite/fluxrail-lite.store';
 import { bootstrapFromStorage, writePersisted } from './features/fluxrail-lite/fluxrail-lite.repo';
 import { createTestBridge } from './test/bridge';
+import { useGameRuntime } from './game/game-runtime';
 import { GameplayFluxrailLite, GameSettingsFluxrailLite } from './screens';
-
-const TICK_MS = 50;
-
-function useGameRuntime(
-  getState: () => GameState,
-  dispatch: (action: GameAction) => void
-) {
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  const start = useCallback(() => {
-    if (intervalRef.current !== null) return;
-    intervalRef.current = setInterval(() => {
-      dispatch({ type: 'TICK', delta: TICK_MS });
-    }, TICK_MS);
-  }, [dispatch]);
-
-  const stop = useCallback(() => {
-    if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-  }, []);
-
-  useEffect(() => {
-    start();
-    return () => stop();
-  }, [start, stop]);
-
-  return { start, stop };
-}
 
 export default function App() {
   const [state, dispatch] = useReducer(gameReducer, undefined, () => {
@@ -64,6 +35,33 @@ export default function App() {
     (globalThis as unknown as Record<string, unknown>).app = bridge;
   }, [getState, dispatch]);
 
+  // Handle keyboard controls
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (state.screen !== 'gameplay') return;
+      switch (e.key) {
+        case 'ArrowLeft':
+        case 'a':
+        case 'A':
+          dispatch({ type: 'MOVE_LEFT' });
+          break;
+        case 'ArrowRight':
+        case 'd':
+        case 'D':
+          dispatch({ type: 'MOVE_RIGHT' });
+          break;
+        case 'p':
+        case 'P':
+        case ' ':
+          e.preventDefault();
+          dispatch({ type: 'TOGGLE_PAUSE' });
+          break;
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [state.screen, dispatch]);
+
   const gameplayActions = {
     'initiate-sequence-1': () => dispatch({ type: 'INITIATE_SEQUENCE' }),
     'restart-2': () => dispatch({ type: 'RESTART' }),
@@ -74,8 +72,14 @@ export default function App() {
     'reset-preferences-1': () => dispatch({ type: 'RESET_PREFERENCES' }),
     'return-to-gameplay-2': () => dispatch({ type: 'SET_SCREEN', screen: 'gameplay' }),
     'save-preferences-3': () => {
-      // Settings screen has radio inputs for difficulty; we save current difficulty
-      dispatch({ type: 'SAVE_PREFERENCES', difficulty: state.difficulty });
+      const selected = document.querySelector<HTMLInputElement>('input[name="difficulty"]:checked')?.value;
+      const difficultyMap: Record<string, 'easy' | 'normal' | 'hard'> = {
+        slow: 'easy',
+        normal: 'normal',
+        fast: 'hard',
+      };
+      const difficulty = (selected && difficultyMap[selected]) || 'normal';
+      dispatch({ type: 'SAVE_PREFERENCES', difficulty });
     },
   };
 

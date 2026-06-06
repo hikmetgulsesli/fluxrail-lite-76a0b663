@@ -17,7 +17,8 @@ export function readPersisted(): PersistedData | null {
       typeof parsed === 'object' &&
       'difficulty' in parsed &&
       'highScore' in parsed &&
-      typeof (parsed as Record<string, unknown>).highScore === 'number'
+      typeof (parsed as Record<string, unknown>).highScore === 'number' &&
+      ['easy', 'normal', 'hard'].includes((parsed as Record<string, unknown>).difficulty as string)
     ) {
       return parsed as PersistedData;
     }
@@ -47,9 +48,6 @@ export function clearPersisted(): boolean {
 
 export function bootstrapFromStorage(): Pick<GameState, 'difficulty' | 'highScore' | 'storageStatus'> {
   const data = readPersisted();
-  if (data === undefined) {
-    // corrupted parse path handled below
-  }
   if (data === null) {
     // Check if key exists but unreadable => corrupted
     try {
