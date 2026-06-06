@@ -1,0 +1,129 @@
+[
+  {
+    "screenId": "d155e7a4b1e044708ddac78e00009ba2",
+    "screenTitle": "Game Settings - FluxRail Lite",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "Reset Preferences",
+        "line": 233
+      },
+      {
+        "type": "button",
+        "label": "Return to Gameplay",
+        "line": 241
+      },
+      {
+        "type": "button",
+        "label": "Save Preferences",
+        "line": 244
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 169
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 175
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 181
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Reset Preferences",
+        "line": 233
+      },
+      {
+        "type": "button",
+        "label": "Return to Gameplay",
+        "line": 241
+      },
+      {
+        "type": "button",
+        "label": "Save Preferences",
+        "line": 244
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 169
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 175
+      },
+      {
+        "type": "input",
+        "label": "radio",
+        "inputType": "radio",
+        "line": 181
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 6,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "cd17a8e9038a421ba4d41acb8efdf6da",
+    "screenTitle": "Gameplay - FluxRail Lite",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "Initiate Sequence",
+        "line": 288
+      },
+      {
+        "type": "button",
+        "label": "Restart",
+        "line": 311
+      },
+      {
+        "type": "button",
+        "label": "Settings",
+        "line": 314
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Initiate Sequence",
+        "line": 288
+      },
+      {
+        "type": "button",
+        "label": "Restart",
+        "line": 311
+      },
+      {
+        "type": "button",
+        "label": "Settings",
+        "line": 314
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 3,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  }
+]
