@@ -1,0 +1,418 @@
+{
+  "generatedAt": "2026-06-06T13:35:09.042Z",
+  "screenCount": 2,
+  "screens": {
+    "cd17a8e9038a421ba4d41acb8efdf6da": {
+      "screenId": "cd17a8e9038a421ba4d41acb8efdf6da",
+      "materialSymbolsRequired": true,
+      "sections": [
+        {
+          "tag": "header",
+          "layout": "flex-row",
+          "classes": [
+            "glass-panel",
+            "px-lg",
+            "py-sm",
+            "rounded-full",
+            "flex",
+            "items-center",
+            "gap-md",
+            "justify-between",
+            "border-b-0",
+            "border-t-0"
+          ],
+          "childCount": 0
+        }
+      ],
+      "buttons": [
+        {
+          "kind": "button",
+          "label": "Initiate Sequence",
+          "classes": [
+            "bg-primary/10",
+            "border",
+            "border-primary",
+            "text-primary",
+            "hover:bg-primary",
+            "hover:text-on-primary",
+            "hover:neon-glow-primary",
+            "px-8",
+            "py-3",
+            "rounded",
+            "uppercase",
+            "font-status-mono",
+            "text-status-mono",
+            "transition-all",
+            "duration-300",
+            "glitch-hover",
+            "focus:outline-none",
+            "focus:ring-2",
+            "focus:ring-primary-fixed-dim"
+          ],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Restart",
+          "classes": [
+            "glass-panel",
+            "w-12",
+            "h-12",
+            "rounded-lg",
+            "flex",
+            "items-center",
+            "justify-center",
+            "text-primary",
+            "hover:bg-primary/20",
+            "hover:text-primary-fixed",
+            "transition-colors",
+            "border",
+            "border-primary/30"
+          ],
+          "icon": "restart_alt",
+          "action": "reset",
+          "expectedBehavior": "reset visible value/state, with confirmation if destructive"
+        },
+        {
+          "kind": "button",
+          "label": "Settings",
+          "classes": [
+            "glass-panel",
+            "w-12",
+            "h-12",
+            "rounded-lg",
+            "flex",
+            "items-center",
+            "justify-center",
+            "text-outline",
+            "hover:text-primary",
+            "hover:bg-primary/10",
+            "transition-colors",
+            "border",
+            "border-outline/30"
+          ],
+          "icon": "settings",
+          "action": "navigate",
+          "expectedBehavior": "navigate:/settings",
+          "expectedRoute": "/settings",
+          "routeInferred": true
+        }
+      ],
+      "inputs": [],
+      "navLinks": [],
+      "cards": [],
+      "icons": [
+        "favorite",
+        "restart_alt",
+        "settings",
+        "bolt"
+      ],
+      "images": [],
+      "cssVars": {},
+      "colorPalette": {
+        "primary": "#dbfcff",
+        "on-primary": "#00363a",
+        "secondary-fixed-dim": "#fface8",
+        "inverse-on-surface": "#2e3037",
+        "surface-container-lowest": "#0b0e14",
+        "surface-bright": "#363940",
+        "on-secondary-container": "#520049",
+        "on-error-container": "#ffdad6",
+        "background": "#10131a",
+        "error-container": "#93000a",
+        "on-secondary-fixed-variant": "#840076",
+        "on-secondary-fixed": "#3a0033",
+        "on-tertiary-container": "#004eeb",
+        "tertiary": "#f6f5ff",
+        "on-surface": "#e1e2eb",
+        "tertiary-fixed": "#dce1ff",
+        "primary-fixed": "#7df4ff",
+        "on-primary-fixed": "#002022",
+        "surface-container-highest": "#32353c",
+        "tertiary-container": "#d0d8ff",
+        "on-tertiary": "#002780",
+        "on-primary-container": "#006970",
+        "surface-container": "#1d2026",
+        "on-background": "#e1e2eb",
+        "surface-container-low": "#191c22",
+        "on-error": "#690005",
+        "secondary-container": "#ff24e4",
+        "surface-variant": "#32353c",
+        "surface-dim": "#10131a",
+        "primary-container": "#00f0ff",
+        "primary-fixed-dim": "#00dbe9",
+        "outline": "#849495",
+        "error": "#ffb4ab",
+        "surface-tint": "#00dbe9",
+        "inverse-surface": "#e1e2eb",
+        "on-tertiary-fixed-variant": "#0039b3",
+        "inverse-primary": "#006970",
+        "tertiary-fixed-dim": "#b6c4ff",
+        "on-secondary": "#5e0053",
+        "on-primary-fixed-variant": "#004f54",
+        "secondary-fixed": "#ffd7f0",
+        "secondary": "#fface8",
+        "on-surface-variant": "#b9cacb",
+        "surface": "#10131a",
+        "outline-variant": "#3b494b",
+        "surface-container-high": "#272a31",
+        "on-tertiary-fixed": "#001551"
+      },
+      "fonts": [
+        "Material Symbols Outlined",
+        "JetBrains Mono",
+        "Inter"
+      ],
+      "layoutHints": {
+        "flexDirection": "col",
+        "gap": "1"
+      },
+      "behaviorContract": [
+        {
+          "kind": "button",
+          "label": "Initiate Sequence",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Restart",
+          "icon": "restart_alt",
+          "action": "reset",
+          "expectedBehavior": "reset visible value/state, with confirmation if destructive"
+        },
+        {
+          "kind": "button",
+          "label": "Settings",
+          "icon": "settings",
+          "action": "navigate",
+          "route": "/settings",
+          "expectedBehavior": "navigate:/settings"
+        }
+      ],
+      "tabBar": [],
+      "title": "Gameplay - FluxRail Lite"
+    },
+    "d155e7a4b1e044708ddac78e00009ba2": {
+      "screenId": "d155e7a4b1e044708ddac78e00009ba2",
+      "materialSymbolsRequired": true,
+      "sections": [
+        {
+          "tag": "main",
+          "layout": "flex-row",
+          "classes": [
+            "relative",
+            "z-20",
+            "w-full",
+            "h-full",
+            "flex",
+            "items-center",
+            "justify-center",
+            "p-playfield-margin"
+          ],
+          "childCount": 30
+        }
+      ],
+      "buttons": [
+        {
+          "kind": "button",
+          "label": "Reset Preferences",
+          "classes": [
+            "flex",
+            "items-center",
+            "gap-sm",
+            "px-md",
+            "py-sm",
+            "border",
+            "border-error/50",
+            "text-error",
+            "hover:bg-error/10",
+            "hover:shadow-[0_0_15px_rgba(255,180,171,0.2)]",
+            "transition-all",
+            "font-status-mono",
+            "text-status-mono",
+            "uppercase"
+          ],
+          "icon": "warning",
+          "action": "reset",
+          "expectedBehavior": "reset visible value/state, with confirmation if destructive"
+        },
+        {
+          "kind": "button",
+          "label": "Return to Gameplay",
+          "classes": [
+            "px-lg",
+            "py-md",
+            "border",
+            "border-outline",
+            "text-outline",
+            "hover:border-primary/50",
+            "hover:text-primary",
+            "transition-all",
+            "font-status-mono",
+            "text-status-mono",
+            "uppercase"
+          ],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Save Preferences",
+          "classes": [
+            "px-lg",
+            "py-md",
+            "bg-primary/20",
+            "border",
+            "border-primary",
+            "text-primary",
+            "hover:bg-primary",
+            "hover:text-on-primary",
+            "transition-all",
+            "font-status-mono",
+            "text-status-mono",
+            "uppercase",
+            "bloom-active"
+          ],
+          "icon": null,
+          "action": "form-submit",
+          "expectedBehavior": "validate inputs and submit/apply changes"
+        }
+      ],
+      "inputs": [
+        {
+          "kind": "input",
+          "type": "radio",
+          "label": "difficulty",
+          "placeholder": "",
+          "name": "difficulty",
+          "classes": [
+            "peer",
+            "sr-only"
+          ],
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        }
+      ],
+      "navLinks": [],
+      "cards": [],
+      "icons": [
+        "speed",
+        "keyboard",
+        "arrow_upward",
+        "arrow_back",
+        "arrow_downward",
+        "arrow_forward",
+        "warning"
+      ],
+      "images": [],
+      "cssVars": {},
+      "colorPalette": {
+        "primary": "#dbfcff",
+        "on-primary": "#00363a",
+        "secondary-fixed-dim": "#fface8",
+        "inverse-on-surface": "#2e3037",
+        "surface-container-lowest": "#0b0e14",
+        "surface-bright": "#363940",
+        "on-secondary-container": "#520049",
+        "on-error-container": "#ffdad6",
+        "background": "#10131a",
+        "error-container": "#93000a",
+        "on-secondary-fixed-variant": "#840076",
+        "on-secondary-fixed": "#3a0033",
+        "on-tertiary-container": "#004eeb",
+        "tertiary": "#f6f5ff",
+        "on-surface": "#e1e2eb",
+        "tertiary-fixed": "#dce1ff",
+        "primary-fixed": "#7df4ff",
+        "on-primary-fixed": "#002022",
+        "surface-container-highest": "#32353c",
+        "tertiary-container": "#d0d8ff",
+        "on-tertiary": "#002780",
+        "on-primary-container": "#006970",
+        "surface-container": "#1d2026",
+        "on-background": "#e1e2eb",
+        "surface-container-low": "#191c22",
+        "on-error": "#690005",
+        "secondary-container": "#ff24e4",
+        "surface-variant": "#32353c",
+        "surface-dim": "#10131a",
+        "primary-container": "#00f0ff",
+        "primary-fixed-dim": "#00dbe9",
+        "outline": "#849495",
+        "error": "#ffb4ab",
+        "surface-tint": "#00dbe9",
+        "inverse-surface": "#e1e2eb",
+        "on-tertiary-fixed-variant": "#0039b3",
+        "inverse-primary": "#006970",
+        "tertiary-fixed-dim": "#b6c4ff",
+        "on-secondary": "#5e0053",
+        "on-primary-fixed-variant": "#004f54",
+        "secondary-fixed": "#ffd7f0",
+        "secondary": "#fface8",
+        "on-surface-variant": "#b9cacb",
+        "surface": "#10131a",
+        "outline-variant": "#3b494b",
+        "surface-container-high": "#272a31",
+        "on-tertiary-fixed": "#001551"
+      },
+      "fonts": [
+        "Material Symbols Outlined",
+        "Inter",
+        "JetBrains Mono"
+      ],
+      "layoutHints": {
+        "gridCols": 3,
+        "flexDirection": "col"
+      },
+      "behaviorContract": [
+        {
+          "kind": "button",
+          "label": "Reset Preferences",
+          "icon": "warning",
+          "action": "reset",
+          "expectedBehavior": "reset visible value/state, with confirmation if destructive"
+        },
+        {
+          "kind": "button",
+          "label": "Return to Gameplay",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Save Preferences",
+          "icon": null,
+          "action": "form-submit",
+          "expectedBehavior": "validate inputs and submit/apply changes"
+        },
+        {
+          "kind": "input",
+          "label": "difficulty",
+          "type": "radio",
+          "placeholder": "",
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        }
+      ],
+      "tabBar": [
+        {
+          "kind": "button",
+          "label": "Return to Gameplay",
+          "icon": null,
+          "active": true
+        },
+        {
+          "kind": "button",
+          "label": "Save Preferences",
+          "icon": null,
+          "active": true
+        }
+      ],
+      "title": "Game Settings - FluxRail Lite"
+    }
+  }
+}

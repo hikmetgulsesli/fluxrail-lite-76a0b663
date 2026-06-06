@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FluxRail Lite - Gameplay</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Inter:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#dbfcff",
+                        "on-primary": "#00363a",
+                        "secondary-fixed-dim": "#fface8",
+                        "inverse-on-surface": "#2e3037",
+                        "surface-container-lowest": "#0b0e14",
+                        "surface-bright": "#363940",
+                        "on-secondary-container": "#520049",
+                        "on-error-container": "#ffdad6",
+                        "background": "#10131a",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#840076",
+                        "on-secondary-fixed": "#3a0033",
+                        "on-tertiary-container": "#004eeb",
+                        "tertiary": "#f6f5ff",
+                        "on-surface": "#e1e2eb",
+                        "tertiary-fixed": "#dce1ff",
+                        "primary-fixed": "#7df4ff",
+                        "on-primary-fixed": "#002022",
+                        "surface-container-highest": "#32353c",
+                        "tertiary-container": "#d0d8ff",
+                        "on-tertiary": "#002780",
+                        "on-primary-container": "#006970",
+                        "surface-container": "#1d2026",
+                        "on-background": "#e1e2eb",
+                        "surface-container-low": "#191c22",
+                        "on-error": "#690005",
+                        "secondary-container": "#ff24e4",
+                        "surface-variant": "#32353c",
+                        "surface-dim": "#10131a",
+                        "primary-container": "#00f0ff",
+                        "primary-fixed-dim": "#00dbe9",
+                        "outline": "#849495",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#00dbe9",
+                        "inverse-surface": "#e1e2eb",
+                        "on-tertiary-fixed-variant": "#0039b3",
+                        "inverse-primary": "#006970",
+                        "tertiary-fixed-dim": "#b6c4ff",
+                        "on-secondary": "#5e0053",
+                        "on-primary-fixed-variant": "#004f54",
+                        "secondary-fixed": "#ffd7f0",
+                        "secondary": "#fface8",
+                        "on-surface-variant": "#b9cacb",
+                        "surface": "#10131a",
+                        "outline-variant": "#3b494b",
+                        "surface-container-high": "#272a31",
+                        "on-tertiary-fixed": "#001551"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "playfield-margin": "12px",
+                        "hud-gap": "8px",
+                        "xl": "40px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "status-mono": ["JetBrains Mono"],
+                        "label-xs": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "status-mono": ["18px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "label-xs": ["12px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-base": ["16px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            overflow: hidden; /* Prevent scrolling on gameplay screen */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.3;
+        }
+
+        /* Glass Panel Styling */
+        .glass-panel {
+            background-color: rgba(11, 14, 20, 0.75); /* surface-container-lowest with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 219, 233, 0.2); /* Low opacity primary cyan */
+        }
+
+        /* Neon Glow Utility */
+        .neon-glow-primary {
+            box-shadow: 0 0 10px rgba(0, 219, 233, 0.5), 0 0 20px rgba(0, 219, 233, 0.3);
+        }
+        .neon-glow-secondary {
+            box-shadow: 0 0 10px rgba(255, 36, 228, 0.5), 0 0 20px rgba(255, 36, 228, 0.3);
+        }
+        
+        .neon-text-primary {
+            text-shadow: 0 0 5px rgba(0, 219, 233, 0.8);
+        }
+
+        /* Playfield grid background */
+        .playfield-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 219, 233, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 219, 233, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        /* Glowing Rails */
+        .rail-track {
+            position: absolute;
+            background-color: rgba(0, 219, 233, 0.2);
+            border-radius: 2px;
+        }
+        .rail-track.active {
+            background-color: theme('colors.primary-fixed-dim');
+            box-shadow: 0 0 8px theme('colors.primary-fixed-dim');
+        }
+
+        /* Light Train */
+        .light-train {
+            position: absolute;
+            background-color: theme('colors.secondary-container');
+            box-shadow: 0 0 15px theme('colors.secondary-container'), 0 0 30px theme('colors.secondary-container');
+            border-radius: 4px;
+            z-index: 10;
+        }
+        
+        /* Rail Switch */
+        .rail-switch {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: theme('colors.surface-container');
+            border: 2px solid theme('colors.secondary');
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .rail-switch:hover {
+            background-color: theme('colors.secondary');
+            box-shadow: 0 0 10px theme('colors.secondary');
+        }
+
+        /* Glitch Animation for Status */
+        @keyframes subtleGlitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-1px, 1px) }
+            40% { transform: translate(-1px, -1px) }
+            60% { transform: translate(1px, 1px) }
+            80% { transform: translate(1px, -1px) }
+            100% { transform: translate(0) }
+        }
+        .glitch-hover:hover {
+            animation: subtleGlitch 0.2s infinite;
+        }
+
+    </style>
+</head>
+<body class="antialiased selection:bg-primary-container selection:text-on-primary-container">
+<div class="scanlines"></div>
+<!-- Playfield Canvas (Background & Rails) -->
+<div class="fixed inset-0 z-0 bg-surface-dim overflow-hidden flex items-center justify-center">
+<div class="playfield-grid"></div>
+<!-- Background Image for depth/texture -->
+<div class="absolute inset-0 opacity-20 bg-cover bg-center" data-alt="A dark, atmospheric retro-futuristic digital cityscape. Glowing neon cyan and magenta grid lines extend across a deep black void. The lighting is intensely focused on the energetic light trails, creating a cyberpunk, high-tech aesthetic suitable for an arcade game background. The mood is fast-paced and technical." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7EWFItEO_M2ecLJ02ugg7jkhEyBInR2NJn2Hwydy5VZUkLjqxsRzrte1eP8gfcx-rXxLGVAeBmrkJ1_JShQyek_2l94vVnH6JeH-xab-MBhNXJczD5hYkYV-AJv_8_E2rEz5o7HV__0aT1sIKrU6a5NeicjMCrBvx4c_UVDNu9wazrw2Ssuulk9WvnijNHEYaqNX5gSaHeVZcpuENFdlMGdP-4xn5mA5IEHP2vyWgcWg9lG8JgEEwhkjatlg7EWi1WeKa-nvnPg');">
+</div>
+<!-- Simulated Rail Network Centerpiece -->
+<div class="relative w-full h-full max-w-5xl max-h-[800px] m-auto z-10" id="playfield-container">
+<!-- Central Node -->
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-4 border-primary-fixed-dim/30 flex items-center justify-center neon-glow-primary">
+<div class="w-16 h-16 rounded-full bg-primary-fixed-dim/20 animate-pulse"></div>
+</div>
+<!-- Horizontal Main Rail -->
+<div class="rail-track active h-2 w-3/4 top-1/2 left-1/8 transform -translate-y-1/2"></div>
+<!-- Vertical Intersecting Rail -->
+<div class="rail-track w-2 h-2/3 left-1/3 top-1/6"></div>
+<div class="rail-track w-2 h-1/2 right-1/4 top-1/4"></div>
+<!-- Angled Rails (Approximated with transforms) -->
+<div class="rail-track h-1 w-64 top-1/3 left-1/4 transform rotate-45 origin-left"></div>
+<div class="rail-track h-1 w-48 bottom-1/4 right-1/3 transform -rotate-12 origin-right"></div>
+<!-- Light Trains (Simulated Active Elements) -->
+<div class="light-train w-12 h-3 top-1/2 left-1/4 transform -translate-y-1/2"></div>
+<div class="light-train w-3 h-10 left-1/3 top-1/3"></div>
+<!-- Rail Switches (Interactive Nodes) -->
+<div class="rail-switch top-1/2 left-1/3"></div>
+<div class="rail-switch top-1/2 right-1/4"></div>
+<div class="rail-switch top-[33%] left-[45%]"></div>
+</div>
+</div>
+<!-- HUD Overlay Layer -->
+<div class="fixed inset-0 z-20 pointer-events-none p-playfield-margin flex flex-col justify-between">
+<!-- Top HUD Cluster -->
+<div class="flex justify-between items-start pointer-events-auto">
+<!-- Top Left: Score & Level -->
+<div class="glass-panel p-md rounded-lg flex flex-col gap-sm">
+<div class="flex items-center gap-md">
+<span class="font-label-xs text-label-xs text-outline uppercase">Score</span>
+<span class="font-status-mono text-status-mono text-primary neon-text-primary text-2xl">084,592</span>
+</div>
+<div class="w-full h-px bg-primary/20"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-outline uppercase">Sector</span>
+<span class="font-status-mono text-status-mono text-secondary">7-G</span>
+</div>
+</div>
+<!-- Top Center: App Bar (Shared Component Semantic Interpretation) -->
+<header class="glass-panel px-lg py-sm rounded-full flex items-center gap-md justify-between border-b-0 border-t-0 bg-surface-container/75 hidden md:flex">
+<span class="font-display-lg text-display-lg tracking-tighter text-primary drop-shadow-[0_0_8px_rgba(0,219,233,0.6)] text-2xl uppercase">FLUXRAIL LITE</span>
+</header>
+<!-- Top Right: Status & Lives -->
+<div class="glass-panel p-md rounded-lg flex flex-col gap-sm items-end">
+<div class="flex items-center gap-sm">
+<span class="font-label-xs text-label-xs text-outline uppercase">Integrity</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="material-symbols-outlined text-error/30" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></div>
+<span class="font-label-xs text-label-xs text-primary-fixed-dim uppercase">System Online</span>
+</div>
+</div>
+</div>
+<!-- Middle Action Area (Start/Pause Overlay) -->
+<!-- Hidden by default, shown when paused or game over. Keeping visible for "Active Gameplay State" requirement to show UI elements, though semantically it might be an overlay -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+<!-- Example: A central interactive alert or start prompt -->
+<div class="glass-panel p-xl rounded-xl flex flex-col items-center gap-lg border-primary/40 pointer-events-auto transform hover:scale-105 transition-transform duration-300">
+<h2 class="font-headline-md text-headline-md text-primary neon-text-primary uppercase text-center mb-2">System Ready</h2>
+<button class="bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-on-primary hover:neon-glow-primary px-8 py-3 rounded uppercase font-status-mono text-status-mono transition-all duration-300 glitch-hover focus:outline-none focus:ring-2 focus:ring-primary-fixed-dim">
+                    Initiate Sequence
+                </button>
+<div class="flex items-center gap-2 mt-4 text-outline">
+<span class="font-label-xs text-label-xs">Press</span>
+<kbd class="px-2 py-1 bg-surface-variant rounded text-on-surface-variant font-status-mono text-xs border border-outline/30 shadow-[0_2px_0_rgba(0,0,0,0.5)]">P</kbd>
+<span class="font-label-xs text-label-xs">to Pause</span>
+</div>
+</div>
+</div>
+<!-- Bottom Controls / Info HUD -->
+<div class="flex justify-between items-end pointer-events-auto">
+<!-- Bottom Left: Diagnostics -->
+<div class="glass-panel p-sm rounded-lg flex flex-col gap-1 opacity-70">
+<span class="font-label-xs text-label-xs text-outline font-mono">CPU_LOAD: 42%</span>
+<span class="font-label-xs text-label-xs text-outline font-mono">NET_SYNC: OK</span>
+<div class="w-24 h-1 bg-surface-variant mt-1 rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed-dim w-3/4"></div>
+</div>
+</div>
+<!-- Bottom Center / Mobile Nav equivalent -->
+<div class="flex gap-sm">
+<!-- Action Buttons -->
+<button class="glass-panel w-12 h-12 rounded-lg flex items-center justify-center text-primary hover:bg-primary/20 hover:text-primary-fixed transition-colors border border-primary/30" title="Restart">
+<span class="material-symbols-outlined">restart_alt</span>
+</button>
+<button class="glass-panel w-12 h-12 rounded-lg flex items-center justify-center text-outline hover:text-primary hover:bg-primary/10 transition-colors border border-outline/30" title="Settings">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<!-- Bottom Right: Active Multiplier or Powerup -->
+<div class="glass-panel p-md rounded-lg flex items-center gap-sm border-secondary/30">
+<span class="material-symbols-outlined text-secondary animate-pulse" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-status-mono text-status-mono text-secondary text-xl">x2 MULT</span>
+</div>
+</div>
+</div>
+<!-- Script for minor visual interaction simulation -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const switches = document.querySelectorAll('.rail-switch');
+            switches.forEach(sw => {
+                sw.addEventListener('click', () => {
+                    // Toggle appearance to simulate switching
+                    if (sw.style.backgroundColor === 'rgb(255, 172, 232)') { // theme secondary
+                        sw.style.backgroundColor = '';
+                        sw.style.boxShadow = '';
+                    } else {
+                        sw.style.backgroundColor = '#fface8';
+                        sw.style.boxShadow = '0 0 10px #fface8';
+                    }
+                });
+            });
+        });
+    </script>
+</body></html>

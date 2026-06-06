@@ -1,0 +1,20 @@
+[
+  {
+    "screenId": "d155e7a4b1e044708ddac78e00009ba2",
+    "name": "Game Settings - FluxRail Lite",
+    "type": "settings",
+    "description": "Game Settings - FluxRail Lite screen",
+    "surfaceIds": [
+      "SURF_GAME_SETTINGS"
+    ]
+  },
+  {
+    "screenId": "cd17a8e9038a421ba4d41acb8efdf6da",
+    "name": "Gameplay - FluxRail Lite",
+    "type": "game",
+    "description": "Gameplay - FluxRail Lite screen",
+    "surfaceIds": [
+      "SURF_GAMEPLAY"
+    ]
+  }
+]

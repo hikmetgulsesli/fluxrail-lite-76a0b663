@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Game Settings - FluxRail Lite</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#dbfcff",
+                        "on-primary": "#00363a",
+                        "secondary-fixed-dim": "#fface8",
+                        "inverse-on-surface": "#2e3037",
+                        "surface-container-lowest": "#0b0e14",
+                        "surface-bright": "#363940",
+                        "on-secondary-container": "#520049",
+                        "on-error-container": "#ffdad6",
+                        "background": "#10131a",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#840076",
+                        "on-secondary-fixed": "#3a0033",
+                        "on-tertiary-container": "#004eeb",
+                        "tertiary": "#f6f5ff",
+                        "on-surface": "#e1e2eb",
+                        "tertiary-fixed": "#dce1ff",
+                        "primary-fixed": "#7df4ff",
+                        "on-primary-fixed": "#002022",
+                        "surface-container-highest": "#32353c",
+                        "tertiary-container": "#d0d8ff",
+                        "on-tertiary": "#002780",
+                        "on-primary-container": "#006970",
+                        "surface-container": "#1d2026",
+                        "on-background": "#e1e2eb",
+                        "surface-container-low": "#191c22",
+                        "on-error": "#690005",
+                        "secondary-container": "#ff24e4",
+                        "surface-variant": "#32353c",
+                        "surface-dim": "#10131a",
+                        "primary-container": "#00f0ff",
+                        "primary-fixed-dim": "#00dbe9",
+                        "outline": "#849495",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#00dbe9",
+                        "inverse-surface": "#e1e2eb",
+                        "on-tertiary-fixed-variant": "#0039b3",
+                        "inverse-primary": "#006970",
+                        "tertiary-fixed-dim": "#b6c4ff",
+                        "on-secondary": "#5e0053",
+                        "on-primary-fixed-variant": "#004f54",
+                        "secondary-fixed": "#ffd7f0",
+                        "secondary": "#fface8",
+                        "on-surface-variant": "#b9cacb",
+                        "surface": "#10131a",
+                        "outline-variant": "#3b494b",
+                        "surface-container-high": "#272a31",
+                        "on-tertiary-fixed": "#001551"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "playfield-margin": "12px",
+                        "hud-gap": "8px",
+                        "xl": "40px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "xs": "4px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "status-mono": ["JetBrains Mono"],
+                        "label-xs": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "status-mono": ["18px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "label-xs": ["12px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-base": ["16px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        /* Neon Bloom Animation */
+        @keyframes pulse-bloom {
+            0% { box-shadow: 0 0 10px rgba(0, 219, 233, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 219, 233, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(0, 219, 233, 0.4); }
+        }
+        .bloom-active {
+            animation: pulse-bloom 2s infinite;
+        }
+    </style>
+</head>
+<!-- Body Background represents the underlying playfield, heavily dimmed -->
+<body class="bg-background text-on-surface h-screen w-screen overflow-hidden relative font-body-base">
+<!-- Playfield Background Image -->
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-30 blur-sm" data-alt="A dark, cinematic top-down view of a futuristic rail network in a digital cyberpunk city. Glowing neon cyan and pink train tracks intersect over a deep, obsidian background. The scene is illuminated by the bright, energetic light-trails of high-speed digital trains moving through the network. The overall aesthetic is highly technical, evoking a retro-future arcade game with heavy contrast and bloom effects." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDUSaZ1lFqwq3O2R4EEKgDQ27S8xaQOajKsZoAl6nYFyFgYmZMQLjI-UKgtHrWsFfqa3l9SDCRG4EVGyJ29gc4yjzHdZ4bZ37bgN75pcX3y6GdpV7dLeHkK4ilsysEKoBz0ISOYQ9tEfrWUgCmPWwV7JeYfB-jVlctAKNPvHWhiZZYtQz8am5wpYQL5EUmPxQRBSKixwzgednBMu6xngs1Cvqlco5bkUw9buYTJBzs-i8i1v9vXvdGo8ScSZ67AlqQHHiegeoiL9g');">
+</div>
+<!-- Dimmer Overlay -->
+<div class="absolute inset-0 z-0 bg-surface-container-lowest/80 backdrop-blur-md"></div>
+<!-- Scanlines -->
+<div class="absolute inset-0 z-10 scanlines"></div>
+<!-- Main Content Area (Settings Overlay) -->
+<main class="relative z-20 w-full h-full flex items-center justify-center p-playfield-margin">
+<!-- Glass Panel Modal -->
+<div class="w-full max-w-2xl bg-surface-container/75 backdrop-blur-xl border border-primary/20 p-lg shadow-[0_0_40px_rgba(0,0,0,0.8)] relative flex flex-col gap-lg overflow-hidden">
+<!-- Corner Accents -->
+<div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-primary/50"></div>
+<div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-primary/50"></div>
+<div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-primary/50"></div>
+<div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-primary/50"></div>
+<!-- Header -->
+<header class="flex justify-between items-center border-b border-primary/20 pb-md">
+<div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-widest uppercase">System Settings</h1>
+<p class="font-label-xs text-label-xs text-primary-fixed uppercase mt-unit opacity-80">FluxRail Lite Config</p>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl opacity-50" style="font-variation-settings: 'FILL' 0;">
+                    settings
+                </span>
+</header>
+<!-- Settings Content -->
+<div class="flex flex-col gap-xl">
+<!-- Section: Difficulty -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-sm text-outline">
+<span class="material-symbols-outlined text-xl">speed</span>
+<h2 class="font-status-mono text-status-mono uppercase">Simulation Speed</h2>
+</div>
+<!-- Segmented Control -->
+<div class="grid grid-cols-3 gap-unit bg-surface-container-lowest border border-outline-variant p-unit">
+<label class="cursor-pointer relative text-center">
+<input class="peer sr-only" name="difficulty" type="radio" value="slow"/>
+<div class="py-sm border border-transparent font-status-mono text-status-mono uppercase text-outline transition-all duration-300 peer-checked:bg-primary/20 peer-checked:text-primary peer-checked:border-primary peer-checked:shadow-[0_0_15px_rgba(0,219,233,0.3)] hover:text-primary-container">
+                                Slow
+                            </div>
+</label>
+<label class="cursor-pointer relative text-center">
+<input checked="" class="peer sr-only" name="difficulty" type="radio" value="normal"/>
+<div class="py-sm border border-transparent font-status-mono text-status-mono uppercase text-outline transition-all duration-300 peer-checked:bg-primary/20 peer-checked:text-primary peer-checked:border-primary peer-checked:shadow-[0_0_15px_rgba(0,219,233,0.3)] hover:text-primary-container">
+                                Normal
+                            </div>
+</label>
+<label class="cursor-pointer relative text-center">
+<input class="peer sr-only" name="difficulty" type="radio" value="fast"/>
+<div class="py-sm border border-transparent font-status-mono text-status-mono uppercase text-outline transition-all duration-300 peer-checked:bg-secondary/20 peer-checked:text-secondary peer-checked:border-secondary peer-checked:shadow-[0_0_15px_rgba(255,172,232,0.3)] hover:text-secondary-fixed">
+                                Fast
+                            </div>
+</label>
+</div>
+</section>
+<!-- Section: Input Help -->
+<section class="flex flex-col gap-md">
+<div class="flex items-center gap-sm text-outline">
+<span class="material-symbols-outlined text-xl">keyboard</span>
+<h2 class="font-status-mono text-status-mono uppercase">Input Mapping</h2>
+</div>
+<div class="bg-surface-container-low border border-primary/10 p-md flex items-center justify-between">
+<!-- Arrow Keys Cluster -->
+<div class="flex flex-col items-center gap-unit">
+<div class="w-10 h-10 bg-surface-bright border-b-2 border-primary flex items-center justify-center font-status-mono text-status-mono text-on-surface shadow-[0_2px_0_rgba(0,0,0,0.5)]">
+<span class="material-symbols-outlined">arrow_upward</span>
+</div>
+<div class="flex gap-unit">
+<div class="w-10 h-10 bg-surface-bright border-b-2 border-primary flex items-center justify-center font-status-mono text-status-mono text-on-surface shadow-[0_2px_0_rgba(0,0,0,0.5)]">
+<span class="material-symbols-outlined">arrow_back</span>
+</div>
+<div class="w-10 h-10 bg-surface-bright border-b-2 border-primary flex items-center justify-center font-status-mono text-status-mono text-on-surface shadow-[0_2px_0_rgba(0,0,0,0.5)]">
+<span class="material-symbols-outlined">arrow_downward</span>
+</div>
+<div class="w-10 h-10 bg-surface-bright border-b-2 border-primary flex items-center justify-center font-status-mono text-status-mono text-on-surface shadow-[0_2px_0_rgba(0,0,0,0.5)]">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Labels -->
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-md">
+<span class="font-status-mono text-status-mono text-on-surface-variant uppercase">Switch Tracks</span>
+<div class="h-[1px] flex-grow bg-outline-variant/50 min-w-[50px]"></div>
+</div>
+<div class="flex items-center gap-md">
+<span class="font-status-mono text-status-mono text-on-surface-variant uppercase">Emergency Stop</span>
+<div class="h-[1px] flex-grow bg-outline-variant/50 min-w-[50px]"></div>
+</div>
+</div>
+<!-- Spacebar -->
+<div class="flex items-center">
+<div class="h-10 px-xl bg-surface-bright border-b-2 border-secondary flex items-center justify-center font-status-mono text-status-mono text-secondary shadow-[0_2px_0_rgba(0,0,0,0.5)]">
+                                SPACE
+                            </div>
+</div>
+</div>
+</section>
+<!-- Section: Danger Zone -->
+<section class="flex justify-start">
+<button class="flex items-center gap-sm px-md py-sm border border-error/50 text-error hover:bg-error/10 hover:shadow-[0_0_15px_rgba(255,180,171,0.2)] transition-all font-status-mono text-status-mono uppercase">
+<span class="material-symbols-outlined text-lg">warning</span>
+                        Reset Preferences
+                    </button>
+</section>
+</div>
+<!-- Footer Actions -->
+<footer class="mt-lg pt-md border-t border-primary/20 flex justify-end gap-md">
+<button class="px-lg py-md border border-outline text-outline hover:border-primary/50 hover:text-primary transition-all font-status-mono text-status-mono uppercase">
+                    Return to Gameplay
+                </button>
+<button class="px-lg py-md bg-primary/20 border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all font-status-mono text-status-mono uppercase bloom-active">
+                    Save Preferences
+                </button>
+</footer>
+</div>
+</main>
+</body></html>

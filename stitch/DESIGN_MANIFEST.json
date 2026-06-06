@@ -1,0 +1,24 @@
+[
+  {
+    "screenId": "d155e7a4b1e044708ddac78e00009ba2",
+    "title": "Game Settings - FluxRail Lite",
+    "htmlFile": "d155e7a4b1e044708ddac78e00009ba2.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sX2EwM2E3YzYzMDc4ZDRlNjZhNzcxZDk2YzYyOGI1MDJjEgsSBxCN19Wi9xcYAZIBIgoKcHJvamVjdF9pZBIUQhI0Mjg0MjE2Mzc1NjE4OTQ5Mzk&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/fluxrail-lite-76a0b663/stitch/d155e7a4b1e044708ddac78e00009ba2.html",
+    "surfaceIds": [
+      "SURF_GAME_SETTINGS"
+    ]
+  },
+  {
+    "screenId": "cd17a8e9038a421ba4d41acb8efdf6da",
+    "title": "Gameplay - FluxRail Lite",
+    "htmlFile": "cd17a8e9038a421ba4d41acb8efdf6da.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sX2U0MjczMTA2ZDI0YjQyMTZhMWQ2ODA2NDg4YTA5NGM0EgsSBxCN19Wi9xcYAZIBIgoKcHJvamVjdF9pZBIUQhI0Mjg0MjE2Mzc1NjE4OTQ5Mzk&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/fluxrail-lite-76a0b663/stitch/cd17a8e9038a421ba4d41acb8efdf6da.html",
+    "surfaceIds": [
+      "SURF_GAMEPLAY"
+    ]
+  }
+]
